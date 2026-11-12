@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SIMPLIFIED DEMO FILE: shaped like a Pentaho job. -->
+<job>
+  <name>nightly_load</name>
+  <description>Nightly DWH load: customers, then products</description>
+  <job_version>1.0</job_version>
+  <entries>
+    <entry><name>START</name><type>SPECIAL</type></entry>
+    <entry>
+      <name>Load customers</name>
+      <type>TRANS</type>
+      <filename>${Internal.Entry.Current.Directory}/../transformations/load_customers.ktr</filename>
+    </entry>
+    <entry><name>Success</name><type>SUCCESS</type></entry>
+  </entries>
+  <hops>
+    <hop><from>START</from><to>Load customers</to><enabled>Y</enabled></hop>
+    <hop><from>Load customers</from><to>Success</to><enabled>Y</enabled></hop>
+  </hops>
+</job>

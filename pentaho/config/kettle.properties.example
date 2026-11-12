@@ -1,0 +1,7 @@
+# COPY this file to ~/.kettle/kettle.properties (outside the repo) and fill in real values.
+# The real kettle.properties is in .gitignore. Only this .example file is committed.
+DWH_HOST=your-dwh-host.example.com
+DWH_PORT=5432
+DWH_DB=dwh
+DWH_USER=etl_user
+DWH_PASSWORD=CHANGE_ME_LOCALLY_ONLY

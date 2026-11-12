@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SIMPLIFIED DEMO FILE: shaped like a Pentaho transformation so Git diffs look realistic. -->
+<transformation>
+  <info>
+    <name>load_customers</name>
+    <description>Load customers from staging into dim_customer</description>
+    <extended_description/>
+    <trans_version>1.0</trans_version>
+    <created_user>dwh_team</created_user>
+  </info>
+  <connection>
+    <name>DWH</name>
+    <server>${DWH_HOST}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${DWH_DB}</database>
+    <port>${DWH_PORT}</port>
+    <username>${DWH_USER}</username>
+    <password>${DWH_PASSWORD}</password>
+  </connection>
+  <order>
+    <hop><from>Read staging customers</from><to>Write dim_customer</to><enabled>Y</enabled></hop>
+  </order>
+  <step>
+    <name>Read staging customers</name>
+    <type>TableInput</type>
+    <connection>DWH</connection>
+    <sql>SELECT customer_id, customer_name, country, updated_at
+FROM stg.customers
+WHERE updated_at &gt;= ${LAST_RUN_DATE}</sql>
+  </step>
+  <step>
+    <name>Write dim_customer</name>
+    <type>InsertUpdate</type>
+    <connection>DWH</connection>
+    <schema>dwh</schema>
+    <table>dim_customer</table>
+    <commit>1000</commit>
+  </step>
+</transformation>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- SIMPLIFIED DEMO FILE: shaped like a Tableau .twb (plain XML) so Git diffs look realistic. -->
+<workbook version='18.1' source-platform='win'>
+  <datasources>
+    <datasource caption='DWH Sales' name='dwh.sales'>
+      <connection class='postgres' dbname='dwh' port='5432' server='dwh-host.example.com' username='report_user' />
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sales by Region'>
+      <table><view><datasources><datasource name='dwh.sales' /></datasources></view></table>
+    </worksheet>
+    <worksheet name='Top Customers'>
+      <table><view><datasources><datasource name='dwh.sales' /></datasources></view></table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Sales Overview'>
+      <zones><zone name='Sales by Region' /><zone name='Top Customers' /></zones>
+    </dashboard>
+  </dashboards>
+</workbook>
