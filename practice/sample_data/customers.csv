@@ -1,0 +1,16 @@
+customer_id,customer_name,country,updated_at
+1001,Acme Retail,Canada,2026-11-02 08:03:00
+1002,Blue Harbor Foods,Mexico,2026-11-03 08:06:00
+1003,Cedar Logistics,UK,2026-11-04 08:09:00
+1004,Delta Health,Germany,2026-11-05 08:12:00
+1005,Evergreen Energy,France,2026-11-06 08:15:00
+1006,Fjord Marine,India,2026-11-07 08:18:00
+1007,Granite Builders,Japan,2026-11-08 08:21:00
+1008,Horizon Telecom,USA,2026-11-09 08:24:00
+1009,Ivy Education,Canada,2026-11-10 08:27:00
+1010,Juniper Textiles,Mexico,2026-11-11 08:30:00
+1011,Keystone Finance,UK,2026-11-12 08:33:00
+1012,Lakeside Hotels,Germany,2026-11-13 08:36:00
+1013,Maple Software,France,2026-11-14 08:39:00
+1014,Nimbus Cloud,India,2026-11-15 08:42:00
+1015,Orchid Pharma,Japan,2026-11-16 08:45:00

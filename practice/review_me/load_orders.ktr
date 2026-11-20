@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- REVIEW EXERCISE: this file has deliberate problems. Find them in the pull request review. All values are fake. -->
+<transformation>
+  <info>
+    <name>load_orders</name>
+    <description></description>
+    <extended_description/>
+    <trans_version>1.0</trans_version>
+    <trans_status>0</trans_status>
+    <directory>&#x2f;</directory>
+    <parameters>
+      <parameter>
+        <name>DATA_DIR</name>
+        <default_value>./practice/sample_data</default_value>
+        <description>Folder that holds the source CSV files</description>
+      </parameter>
+    </parameters>
+    <created_user>-</created_user>
+    <created_date>2026/11/20 09:00:00.000</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2026/11/20 09:00:00.000</modified_date>
+  </info>
+  <connection>
+    <name>DWH</name>
+    <server>prod-dwh-01.example.com</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${DWH_DB}</database>
+    <port>${DWH_PORT}</port>
+    <username>etl_admin</username>
+    <password>Welcome123!</password>
+  </connection>
+  <order>
+    <hop><from>Read orders.csv</from><to>Select columns</to><enabled>Y</enabled></hop>
+    <hop><from>Select columns</from><to>Write fact_orders</to><enabled>Y</enabled></hop>
+  </order>
+  <step>
+    <name>Read orders.csv</name>
+    <type>CSVInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <filename>C:\Users\jsmith\Desktop\orders_final_v3.csv</filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>N</lazy_conversion>
+    <encoding>UTF-8</encoding>
+    <fields>
+        <field>
+          <name>order_id</name>
+          <type>Integer</type>
+          <format>#</format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>15</length>
+          <precision>0</precision>
+          <trim_type>none</trim_type>
+        </field>
+        <field>
+          <name>customer_id</name>
+          <type>Integer</type>
+          <format>#</format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>15</length>
+          <precision>0</precision>
+          <trim_type>none</trim_type>
+        </field>
+        <field>
+          <name>order_date</name>
+          <type>Date</type>
+          <format>yyyy-MM-dd</format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>-1</length>
+          <precision>-1</precision>
+          <trim_type>none</trim_type>
+        </field>
+        <field>
+          <name>amount</name>
+          <type>Number</type>
+          <format>#.##</format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>15</length>
+          <precision>2</precision>
+          <trim_type>none</trim_type>
+        </field>
+    </fields>
+    <GUI><xloc>96</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+  <step>
+    <name>Select columns</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <fields>
+      <field><name>order_id</name><rename/><length>-2</length><precision>-2</precision></field>
+      <field><name>customer_id</name><rename/><length>-2</length><precision>-2</precision></field>
+      <field><name>order_date</name><rename/><length>-2</length><precision>-2</precision></field>
+      <field><name>amount</name><rename/><length>-2</length><precision>-2</precision></field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <GUI><xloc>288</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+  <step>
+    <name>Write fact_orders</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <connection>DWH</connection>
+    <schema>dwh</schema>
+    <table>fact_orders</table>
+    <commit>1</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <fields>
+        <field><column_name>order_id</column_name><stream_name>order_id</stream_name></field>
+        <field><column_name>customer_id</column_name><stream_name>customer_id</stream_name></field>
+        <field><column_name>order_date</column_name><stream_name>order_date</stream_name></field>
+        <field><column_name>amount</column_name><stream_name>amount</stream_name></field>
+    </fields>
+    <GUI><xloc>480</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+</transformation>

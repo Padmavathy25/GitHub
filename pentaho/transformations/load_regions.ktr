@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PRACTICE FILE: shaped like a Pentaho transformation. Not tested in Spoon; used to practise Git. -->
+<transformation>
+  <info>
+    <name>load_regions</name>
+    <description>Load regions into dim_region</description>
+    <extended_description/>
+    <trans_version>1.0</trans_version>
+    <trans_status>0</trans_status>
+    <directory>&#x2f;</directory>
+    <parameters>
+      <parameter>
+        <name>DATA_DIR</name>
+        <default_value>./practice/sample_data</default_value>
+        <description>Folder that holds the source CSV files</description>
+      </parameter>
+    </parameters>
+    <created_user>-</created_user>
+    <created_date>2026/11/20 09:00:00.000</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2026/11/20 09:00:00.000</modified_date>
+  </info>
+  <connection>
+    <name>DWH</name>
+    <server>${DWH_HOST}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${DWH_DB}</database>
+    <port>${DWH_PORT}</port>
+    <username>${DWH_USER}</username>
+    <password>${DWH_PASSWORD}</password>
+  </connection>
+  <order>
+    <hop><from>Read regions.csv</from><to>Select columns</to><enabled>Y</enabled></hop>
+    <hop><from>Select columns</from><to>Write dim_region</to><enabled>Y</enabled></hop>
+  </order>
+  <step>
+    <name>Read regions.csv</name>
+    <type>CSVInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <filename>${DATA_DIR}/regions.csv</filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>N</lazy_conversion>
+    <encoding>UTF-8</encoding>
+    <fields>
+        <field>
+          <name>region_id</name>
+          <type>Integer</type>
+          <format>#</format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>15</length>
+          <precision>0</precision>
+          <trim_type>none</trim_type>
+        </field>
+        <field>
+          <name>region_name</name>
+          <type>String</type>
+          <format></format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>100</length>
+          <precision>0</precision>
+          <trim_type>none</trim_type>
+        </field>
+        <field>
+          <name>country</name>
+          <type>String</type>
+          <format></format>
+          <currency/>
+          <decimal/>
+          <group/>
+          <length>100</length>
+          <precision>0</precision>
+          <trim_type>none</trim_type>
+        </field>
+    </fields>
+    <GUI><xloc>96</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+  <step>
+    <name>Select columns</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <fields>
+      <field><name>region_id</name><rename/><length>-2</length><precision>-2</precision></field>
+      <field><name>region_name</name><rename/><length>-2</length><precision>-2</precision></field>
+      <field><name>country</name><rename/><length>-2</length><precision>-2</precision></field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <GUI><xloc>288</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+  <step>
+    <name>Write dim_region</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <connection>DWH</connection>
+    <schema>dwh</schema>
+    <table>dim_region</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <fields>
+        <field><column_name>region_id</column_name><stream_name>region_id</stream_name></field>
+        <field><column_name>region_name</column_name><stream_name>region_name</stream_name></field>
+        <field><column_name>country</column_name><stream_name>country</stream_name></field>
+    </fields>
+    <GUI><xloc>480</xloc><yloc>112</yloc><draw>Y</draw></GUI>
+  </step>
+</transformation>
