@@ -1,0 +1,11 @@
+# Keep Pentaho / Tableau XML as text so Git can diff and merge it
+*.ktr  text eol=lf
+*.kjb  text eol=lf
+*.twb  text eol=lf
+*.tds  text eol=lf
+*.sql  text eol=lf
+*.sh   text eol=lf
+
+# Binary - do not try to diff
+*.twbx binary
+*.hyper binary
