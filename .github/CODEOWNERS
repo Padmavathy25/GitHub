@@ -1,0 +1,4 @@
+# Who must review what (replace with your real GitHub usernames / teams)
+/pentaho/   @your-org/dwh-etl
+/tableau/   @your-org/dwh-bi
+/sql/       @your-org/dwh-etl
