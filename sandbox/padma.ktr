@@ -3,7 +3,7 @@
 <transformation>
   <info>
     <name>load_customers</name>
-    <description>Load customers from staging into customer</description>
+    <description>Load customers from staging into dim_customer</description>
     <extended_description/>
     <trans_version>1.0</trans_version>
     <created_user>dwh_team</created_user>
